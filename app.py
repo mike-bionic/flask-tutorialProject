@@ -20,7 +20,6 @@ def home():
 
 
 
-
 # def calculate_price(price,tax):
 # 	result = price - tax
 # 	return result
