@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home page</title>
+</head>
+<body>
+
+	<div>
+		<p>Hello, {{user.UName}}</p>
+		<h2>Welcome to home page!</h2>
+	</div>
+	<div>
+		<h1>Our Products</h1>
+		<ul>
+			{% for resource in resources %}
+				{% if resource.ResPriceVal >= 5000 %}
+				<li>{{resource.ResName}}: <b>{{resource.ResPriceVal}} $</b></li>
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+
+	<h1>Our Products (filtered in backend)</h1>
+		<ul>
+			{% for resource in filtered_resources %}
+				<li>{{resource.ResName}}: <b>{{resource.ResPriceVal}} $</b></li>
+			{% endfor %}
+		</ul>
+	</div>
+
+</body>
+</html>
