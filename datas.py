@@ -31,7 +31,7 @@ database = {
 			"ResCatId": 2
 		}
 	],
-	"Res_categoires": [
+	"Res_categories": [
 		{
 			"ResCatId": 1,
 			"ResCatName": "Smartphones"
