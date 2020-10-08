@@ -3,11 +3,13 @@ database = {
 		{
 			"UId": 1,
 			"UName": "Plan planyyew",
+			"UPass": "parol123",
 			"Age": 18
 		},
 		{
 			"UId": 2,
 			"UName": "Jemal planyyewa",
+			"UPass": "123",
 			"Age": 20
 		}
 	],

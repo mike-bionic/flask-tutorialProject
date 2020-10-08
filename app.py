@@ -1,8 +1,24 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 
 from datas import database
 
 app = Flask(__name__)
+
+@app.route("/login",methods=['GET','POST'])
+def login():
+	users = database["Users"]
+	if request.method == 'GET':
+		return render_template("/login.html",title="Ulgama gir!")
+	elif request.method == 'POST':
+		print(request.form)
+		username = request.form['username']
+		password = request.form['password']
+		for user in users:
+			if user["UName"] == username and user["UPass"] == password:
+				return "Successfully logged in"
+			else:
+				return redirect('/login') 
+				
 
 @app.route("/")
 def home():
