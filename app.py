@@ -1,8 +1,24 @@
 from flask import Flask, render_template, request, redirect
-
+from flask_sqlalchemy import SQLAlchemy
 from datas import database
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = "sdfhlrhforiliriknvrer98oin"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///ecommerce.db"
+
+db = SQLAlchemy(app)
+
+class Resources(db.Model):
+	ResId = db.Column(db.Integer,nullable=False,primary_key=True)
+	ResName = db.Column(db.String(100),nullable=False)
+	ResPriceVal = db.Column(db.Float,default=0.0)
+	ResCatId = db.Column(db.Integer,db.ForeignKey("res_categories.ResCatId"))
+
+class Res_categories(db.Model):
+	ResCatId = db.Column(db.Integer,nullable=False,primary_key=True)
+	ResCatName = db.Column(db.String(100),nullable=False)
+	Resources = db.relationship("Resources",backref="res_categories",lazy=True)
+
 
 @app.route("/login",methods=['GET','POST'])
 def login():
@@ -22,6 +38,25 @@ def login():
 
 @app.route("/")
 def home():
+	user = database['Users'][1]
+	resources = Resources.query.all()
+	categories = Res_categories.query.all()
+	resources_data = []
+	for resource in resources:
+		this_resource_category = Res_categories.query.filter_by(ResCatId = resource.ResCatId).first()
+		this_resource_category_name = this_resource_category.ResCatName
+		data = {
+			"ResName": resource.ResName,
+			"ResPriceVal": resource.ResPriceVal,
+			"Category": this_resource_category_name
+		}
+		resources_data.append(data)
+
+	return render_template("main.html", title = "E-commerce!", user = user,
+		resources = resources_data, categories = categories)
+
+@app.route("/old/")
+def home_old():
 	user = database['Users'][1]
 	resource = database['Resources'][1]["ResName"]
 	print(resource)
