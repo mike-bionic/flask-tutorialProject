@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Hello flask</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+	<!-- <link rel="stylesheet" href="/static/css/style.css"> -->
+</head>
+<body>
+
+	<h2>Rendered successfully</h2>
+	<p>{{ message }}</p>
+
+	<hr>
+	{{users}}
+
+	<hr>
+	<div>
+		<ul>
+			{% for user in users %}
+				<li>
+					<b>Name:</b> {{ user.UName }}
+					<ol>
+						{% if user.Skills %}
+							<b>Skills:</b>
+							{% for skill in user.Skills %}
+								<li>
+									{{ skill.SkillName }}
+								</li>
+							{% endfor %}
+						{% else %}
+							<p>No skills specified...</p>
+						{% endif %}
+					</ol>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+	
+</body>
+</html>

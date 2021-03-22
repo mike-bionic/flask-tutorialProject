@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+	<title>Users</title>
+</head>
+<body>
+	Users table
+	
+	{% with messages = get_flashed_messages(with_categories=true) %}
+	{% if messages %}
+		{% for category, message in messages %}
+		<div class="alert alert-{{ category }} alert-dismissible show fade" style="margin: auto; height: 10%; opacity: 1; width: 95%; overflow: auto; text-align: center;">
+			<div class="alert-body" style="padding-top: 5px;">
+				<button class="close" data-dismiss="alert">
+					<span>×</span>
+				</button>
+				{{ message }}
+			</div>
+		</div>
+		{% endfor %}
+	{% endif %}
+	{% endwith %}
+
+	<table class="table-bordered th">
+		<thead>
+			<th>id</th>
+			<th>Name</th>
+			<th>Age</th>
+			<th>Action</th>
+		</thead>
+		<tbody>
+			{% for user in users %}
+			<tr>
+				<td>
+					{{ user.id }}
+				</td>
+				<td>
+					{{ user.username }}
+				</td>
+				<td>
+					{{ user.age }}
+				</td>
+
+				<td>
+					<!-- <a href="/ulanyjylar/{{ user.id }}/delete"> -->
+					<a href="{{ url_for('delete_user', id=user.id) }}">
+						Delete
+					</a>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+
+	</table>
+
+	<div>
+		<p>add new user</p>
+		<form action="" method="POST">
+			{{ form.csrf_token }}
+			{{ form.username(placeholder='username') }}
+			{{ form.age(placeholder='age') }}
+			<button type="submit">Add</button>
+		</form>
+	</div>
+	
+</body>
+</html>
