@@ -33,7 +33,8 @@ def users_page():
 	return render_template(
 		"users.html",
 		users = users,
-		form = form
+		form = form,
+		title = "ulanyjylar tablisasy"
 	)
 
 @bp.route("/ulanyjylar/<int:id>/delete")

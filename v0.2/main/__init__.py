@@ -19,6 +19,9 @@ def create_app(config_class = Config):
 	from main.api.users import api as users_api
 	app.register_blueprint(users_api)
 
+	from main.ui.auth import bp as auth_bp
+	app.register_blueprint(auth_bp)
+
 	from main.ui.main import bp as main_bp
 	app.register_blueprint(main_bp)
 	

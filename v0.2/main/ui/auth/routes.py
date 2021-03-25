@@ -21,11 +21,12 @@ def login():
 				message = "Access granted"
 				message_style = 'success'
 				flash(message, message_style)
-				return redirect(url_for('index'))
+				return redirect(url_for('main_bp.index'))
 		
 		flash(message, message_style)
 
 	return render_template(
 		'auth/login.html',
-		form = form
+		form = form,
+		title = "Login"
 	)
