@@ -10,7 +10,7 @@ db = SQLAlchemy(app)
 
 class Resources(db.Model):
 	ResId = db.Column(db.Integer,nullable=False,primary_key=True)
-	ResName = db.Column(db.String(100),nullable=False)
+	ResName = db.Column(db.String(100),nullable=False,unique=True)
 	ResPriceVal = db.Column(db.Float,default=0.0)
 	ResCatId = db.Column(db.Integer,db.ForeignKey("res_categories.ResCatId"))
 
@@ -85,7 +85,22 @@ def home_old():
 def product(ResId):
 	ResId = int(ResId)
 	resources = database['Resources']
-	resource = [resource for resource in resources if resource["ResId"] == ResId][0]
+	try:
+		resource = [resource for resource in resources if resource["ResId"] == ResId][0]
+	except:
+		print("bug")
+
+	this_resource = None
+	
+	for resource in resources:
+		if resource["ResId"] == ResId:
+			this_resource = resource
+	
+	if this_resource:
+		print(f"this resource is {this_resource['ResName']} | {this_resource['ResPriceVal']}")
+	else:
+		print("resource not found")
+		return "not found"
 	print(resource)
 	return render_template("/product.html",resource = resource, title=resource["ResName"])
 
